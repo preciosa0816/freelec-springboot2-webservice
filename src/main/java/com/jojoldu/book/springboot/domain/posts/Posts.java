@@ -1,5 +1,6 @@
 package com.jojoldu.book.springboot.domain.posts;
 
+import com.jojoldu.book.springboot.domain.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +10,7 @@ import javax.persistence.*;
 @Getter //lombok annotation //Entity 클래스에서는 절대 setter 메소드 x(builder를 사용해서 명확하게 필드지정후 db삽입)
 @NoArgsConstructor //lombok annotation, 기본 생성자 자동추가, public Posts(){} 와 동일 효과
 @Entity //JPA annotation, table 과 링크될 클래스임을 표시함.
-public class Posts {
+public class Posts extends BaseTimeEntity { //BaseTimeEntity를 상속시 수정/등록시간이 자동으로 저장됨.
    @Id //PK
    @GeneratedValue(strategy = GenerationType.IDENTITY) // pk 생성규칙
    private Long id;
