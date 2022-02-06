@@ -42,6 +42,35 @@ public class PostsApiControllerTest {
     }
 
     @Test
+    public void test() throws Exception{
+        //given
+        String title = "title";
+        String content = "content";
+        PostsSaveRequestDto requestDto = PostsSaveRequestDto.builder().title(title).content(content).test("5\n" +
+                "0 4\n" +
+                "1 2\n" +
+                "1 -1\n" +
+                "2 2\n" +
+                "3 3").build();
+
+        String url = "http://localhost:"+port+"/api/v1/test";
+
+        //when
+        ResponseEntity<Long> responseEntity = restTemplate.postForEntity(url, requestDto, Long.class);
+
+        //then
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(responseEntity.getBody()).isGreaterThan(0L);
+
+        List<Posts> all = postsRepository.findAll();
+        assertThat(all.get(0).getTest()).isEqualTo("1 -1\n" +
+                "1 2\n" +
+                "2 2\n" +
+                "3 3\n" +
+                "0 4\n");
+    }
+
+    @Test
     public void SavePosts() throws Exception{
         //given
         String title = "title";
@@ -88,7 +117,5 @@ public class PostsApiControllerTest {
         List<Posts> all = postsRepository.findAll();
         assertThat(all.get(0).getTitle()).isEqualTo(expectedTitle);
         assertThat(all.get(0).getContent()).isEqualTo(expectedContent);
-
-
     }
 }

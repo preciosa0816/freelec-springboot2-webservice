@@ -23,11 +23,15 @@ public class Posts extends BaseTimeEntity { //BaseTimeEntity를 상속시 수정
 
    private String author;
 
+   @Column(columnDefinition = "TEXT", nullable = true)
+   private String test;
+
    @Builder //빌더패턴클래스 생성, 생성자 상단에 선언시 생성자에 포함된 필드만 빌더에 포함.
-    public Posts(String title, String content, String author){
+    public Posts(String title, String content, String author, String test){
        this.title=title;
        this.content=content;
        this.author=author;
+       this.test=test;
    }
 
    public void update(String title, String content){

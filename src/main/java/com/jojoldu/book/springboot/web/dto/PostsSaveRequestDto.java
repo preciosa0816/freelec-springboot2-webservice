@@ -14,14 +14,17 @@ public class PostsSaveRequestDto {// Entity클래스와 유사한 형태. Entity
     private String content;
     private String author;
 
+    private String test;
+
     @Builder
-    public PostsSaveRequestDto(String title, String content, String author){
+    public PostsSaveRequestDto(String title, String content, String author, String test){
         this.title=title;
         this.content=content;
         this.author=author;
+        this.test=test;
     }
 
     public Posts toEntity(){
-        return Posts.builder().title(title).content(content).author(author).build();
+        return Posts.builder().title(title).content(content).author(author).test(test).build();
     }
 }
